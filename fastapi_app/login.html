@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Register</h2>
+<input id="r_user" placeholder="username">
+<input id="r_email" placeholder="email">
+<input id="r_pass" type="password" placeholder="password">
+<button onclick="register()">Register</button>
+
+<h2>Login</h2>
+<input id="l_user" placeholder="username">
+<input id="l_pass" type="password" placeholder="password">
+<button onclick="login()">Login</button>
+
+<script>
+async function register() {
+  await fetch("http://localhost:8000/register", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username: r_user.value,
+      email: r_email.value,
+      password: r_pass.value
+    })
+  });
+  alert("Registered!");
+}
+
+async function login() {
+  let res = await fetch("http://localhost:8000/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username: l_user.value,
+      password: l_pass.value
+    })
+  });
+
+  let data = await res.json();
+  alert(JSON.stringify(data));
+}
+</script>
+
+</body>
+</html>
